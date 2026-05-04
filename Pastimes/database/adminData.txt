@@ -1,0 +1,9 @@
+# Pastimes — adminData.txt
+# Format: firstName|lastName|email|username|password
+# Passwords are plain text here — loadClothingStore.php hashes them on insert.
+# ──────────────────────────────────────────────────────────────────────────────
+Super|Admin|superadmin@pastimes.co.za|superadmin|Admin1234!
+Priya|Naidoo|priya.naidoo@pastimes.co.za|priya_admin|Priya5678@
+Marcus|Botha|marcus.botha@pastimes.co.za|marcus_mod|Marcus99#
+Zanele|Sithole|zanele.sithole@pastimes.co.za|zanele_mod|Zanele77!
+Ruben|Jacobs|ruben.jacobs@pastimes.co.za|ruben_admin|Ruben2024$

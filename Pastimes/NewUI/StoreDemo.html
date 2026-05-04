@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pastimes — Pre-Loved Fashion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ivory: #FAF6EF;
+    --ivory-dark: #F0E8D8;
+    --espresso: #1C130B;
+    --espresso-light: #3D2B1C;
+    --gold: #BF8B30;
+    --gold-light: #D4A855;
+    --gold-pale: #F2E0B6;
+    --sage: #6B7C60;
+    --sage-pale: #E5EAE0;
+    --stone: #9A8B7A;
+    --stone-pale: #EBE4D8;
+    --cream-card: #FDF9F3;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', system-ui, sans-serif;
+    --nav-h: 64px;
+    --bottom-h: 72px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--ivory);
+    color: var(--espresso);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP NAV ─────────────────────────────────────── */
+  .top-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    background: rgba(250,246,239,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(191,139,48,0.18);
+    display: flex; align-items: center;
+    padding: 0 20px;
+    gap: 12px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--espresso);
+    flex: 1;
+    text-align: center;
+  }
+  .nav-icon-btn {
+    width: 40px; height: 40px;
+    border: none; background: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .nav-icon-btn:hover { background: var(--ivory-dark); }
+  .nav-icon-btn svg { width: 22px; height: 22px; stroke: var(--espresso); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .cart-badge {
+    position: absolute; top: 4px; right: 4px;
+    width: 16px; height: 16px;
+    background: var(--gold);
+    border-radius: 50%;
+    font-size: 9px; font-weight: 600;
+    color: #fff; display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── BOTTOM NAV ──────────────────────────────────── */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    height: var(--bottom-h);
+    background: rgba(250,246,239,0.97);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(191,139,48,0.18);
+    display: flex; align-items: center;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .bnav-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px; height: 100%;
+    cursor: pointer; border: none; background: none;
+    font-family: var(--sans); font-size: 10px;
+    font-weight: 500; letter-spacing: 0.06em;
+    color: var(--stone); text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .bnav-item.active { color: var(--gold); }
+  .bnav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .bnav-item.active svg { stroke: var(--gold); }
+
+  /* ── PAGE WRAPPER ────────────────────────────────── */
+  .page {
+    display: none;
+    padding-top: var(--nav-h);
+    padding-bottom: calc(var(--bottom-h) + 12px);
+    min-height: 100vh;
+    animation: fadeInUp 0.4s ease forwards;
+  }
+  .page.active { display: block; }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SCROLL AREA ─────────────────────────────────── */
+  .scroll-area { overflow-y: auto; }
+
+  /* ══════════════════════════════════════
+     PAGE 1 — HOME
+  ══════════════════════════════════════ */
+  .hero {
+    position: relative;
+    height: 78vw;
+    max-height: 520px;
+    overflow: hidden;
+    background: #2A1F14;
+  }
+  .hero img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    opacity: 0.82;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(28,19,11,0) 30%, rgba(28,19,11,0.88) 100%);
+  }
+  .hero-content {
+    position: absolute; bottom: 32px; left: 24px; right: 24px;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 10vw, 56px);
+    font-weight: 300; color: #fff;
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    margin-bottom: 18px;
+  }
+  .hero-title em { font-style: italic; color: var(--gold-light); }
+  .hero-cta-row { display: flex; gap: 10px; }
+  .btn-primary {
+    background: var(--gold);
+    color: #fff;
+    border: none; cursor: pointer;
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 13px 24px;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.5); cursor: pointer;
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 13px 24px;
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* Search bar */
+  .search-bar-wrap {
+    padding: 16px 20px 0;
+    position: relative;
+  }
+  .search-bar {
+    width: 100%;
+    height: 48px;
+    border: 1.5px solid var(--stone-pale);
+    border-radius: 2px;
+    background: var(--cream-card);
+    font-family: var(--sans); font-size: 14px;
+    color: var(--espresso);
+    padding: 0 48px 0 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar::placeholder { color: var(--stone); }
+  .search-bar:focus { border-color: var(--gold); }
+  .search-bar-icon {
+    position: absolute; right: 32px; top: 50%; transform: translateY(-50%);
+    width: 20px; height: 20px; stroke: var(--stone); fill: none; stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+
+  /* Categories strip */
+  .section-header {
+    display: flex; align-items: baseline;
+    padding: 28px 20px 14px;
+    gap: 12px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 24px; font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--espresso);
+  }
+  .section-link {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold); cursor: pointer;
+    margin-left: auto; white-space: nowrap;
+  }
+  .cats-scroll {
+    display: flex; gap: 10px;
+    padding: 0 20px 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cats-scroll::-webkit-scrollbar { display: none; }
+  .cat-chip {
+    flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 8px; cursor: pointer;
+  }
+  .cat-img {
+    width: 72px; height: 72px; border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cat-chip:hover .cat-img { border-color: var(--gold); transform: scale(1.05); }
+  .cat-chip.active .cat-img { border-color: var(--gold); }
+  .cat-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--espresso);
+  }
+
+  /* Product grid */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    padding: 2px 0;
+    margin: 0 0 8px;
+  }
+  .product-card {
+    background: var(--cream-card);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: opacity 0.2s;
+  }
+  .product-card:hover { opacity: 0.92; }
+  .product-card img {
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .product-card:hover img { transform: scale(1.04); }
+  .product-info {
+    padding: 10px 12px 14px;
+  }
+  .product-condition {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--sage);
+    margin-bottom: 4px;
+  }
+  .product-name {
+    font-family: var(--serif);
+    font-size: 15px; font-weight: 400;
+    color: var(--espresso); line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .product-price {
+    font-size: 13px; font-weight: 600; color: var(--espresso-light);
+  }
+  .product-price .orig-price {
+    font-weight: 400; color: var(--stone);
+    text-decoration: line-through; margin-left: 6px; font-size: 11px;
+  }
+  .wishlist-btn {
+    position: absolute; top: 10px; right: 10px;
+    width: 32px; height: 32px;
+    background: rgba(250,246,239,0.9);
+    border: none; cursor: pointer; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .wishlist-btn:hover { background: #fff; transform: scale(1.1); }
+  .wishlist-btn svg { width: 16px; height: 16px; stroke: var(--espresso); fill: none; stroke-width: 1.5; }
+  .wishlist-btn.liked svg { fill: #C4622D; stroke: #C4622D; }
+
+  /* Banner strip */
+  .promo-banner {
+    margin: 20px;
+    background: var(--espresso);
+    border-radius: 2px;
+    padding: 24px 20px;
+    display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .promo-banner::before {
+    content: ''; position: absolute;
+    right: -20px; top: -20px;
+    width: 120px; height: 120px;
+    border: 1px solid rgba(191,139,48,0.3);
+    border-radius: 50%;
+  }
+  .promo-banner::after {
+    content: ''; position: absolute;
+    right: 10px; top: 10px;
+    width: 80px; height: 80px;
+    border: 1px solid rgba(191,139,48,0.15);
+    border-radius: 50%;
+  }
+  .promo-text { flex: 1; }
+  .promo-eyebrow { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .promo-headline { font-family: var(--serif); font-size: 22px; font-weight: 300; color: #fff; line-height: 1.2; }
+  .promo-btn {
+    background: var(--gold); color: #fff; border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 11px 18px; border-radius: 2px; white-space: nowrap;
+    position: relative; z-index: 1;
+    transition: background 0.2s;
+  }
+
+  /* Rating stars */
+  .stars { color: var(--gold); font-size: 11px; letter-spacing: 2px; }
+
+  /* ══════════════════════════════════════
+     PAGE 2 — BROWSE
+  ══════════════════════════════════════ */
+  .browse-header {
+    padding: 20px 20px 8px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .browse-title {
+    font-family: var(--serif); font-size: 28px; font-weight: 300;
+    flex: 1;
+  }
+  .filter-btn {
+    display: flex; align-items: center; gap: 6px;
+    border: 1.5px solid var(--stone-pale);
+    background: none; cursor: pointer;
+    font-family: var(--sans); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 8px 14px; border-radius: 2px;
+    color: var(--espresso);
+    transition: border-color 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--gold); }
+  .filter-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* Filter pills */
+  .filter-pills {
+    display: flex; gap: 8px; padding: 0 20px 12px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .filter-pills::-webkit-scrollbar { display: none; }
+  .pill {
+    flex-shrink: 0;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 7px 14px;
+    border-radius: 20px; cursor: pointer;
+    border: 1px solid var(--stone-pale);
+    background: none; color: var(--stone);
+    font-family: var(--sans);
+    transition: all 0.2s;
+  }
+  .pill.active {
+    background: var(--espresso); color: #fff; border-color: var(--espresso);
+  }
+  .pill:hover:not(.active) { border-color: var(--espresso); color: var(--espresso); }
+
+  /* Sort row */
+  .sort-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px 14px;
+  }
+  .results-count { font-size: 12px; color: var(--stone); letter-spacing: 0.05em; }
+  .sort-select {
+    font-family: var(--sans); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; background: none; color: var(--espresso);
+    cursor: pointer; outline: none;
+  }
+
+  /* ══════════════════════════════════════
+     PAGE 3 — PRODUCT DETAIL
+  ══════════════════════════════════════ */
+  .detail-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    position: relative;
+    background: #2A1F14;
+  }
+  .detail-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .img-counter {
+    position: absolute; bottom: 16px; right: 16px;
+    background: rgba(28,19,11,0.6);
+    backdrop-filter: blur(6px);
+    color: #fff; font-size: 11px; font-weight: 500;
+    padding: 6px 12px; border-radius: 12px;
+    letter-spacing: 0.08em;
+  }
+  .detail-img-thumbs {
+    display: flex; gap: 6px; padding: 10px 20px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .detail-img-thumbs::-webkit-scrollbar { display: none; }
+  .thumb {
+    flex-shrink: 0;
+    width: 60px; height: 72px; border-radius: 2px;
+    object-fit: cover; cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .thumb.active { border-color: var(--gold); }
+  .detail-body { padding: 4px 20px 20px; }
+  .detail-brand {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+  }
+  .detail-name {
+    font-family: var(--serif); font-size: 28px; font-weight: 300;
+    line-height: 1.15; margin-bottom: 8px;
+  }
+  .detail-price-row {
+    display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;
+  }
+  .detail-price { font-size: 20px; font-weight: 600; color: var(--espresso); }
+  .detail-orig { font-size: 14px; font-weight: 400; color: var(--stone); text-decoration: line-through; }
+  .detail-save {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #fff;
+    background: #C4622D; padding: 3px 8px; border-radius: 2px;
+  }
+  .size-section { margin-bottom: 18px; }
+  .size-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--stone); margin-bottom: 10px;
+  }
+  .size-opts { display: flex; gap: 8px; }
+  .size-opt {
+    width: 44px; height: 44px; border: 1.5px solid var(--stone-pale);
+    border-radius: 2px; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .size-opt.active {
+    border-color: var(--espresso); background: var(--espresso); color: #fff;
+  }
+  .size-opt:hover:not(.active) { border-color: var(--espresso); }
+  .cta-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .btn-cart {
+    flex: 1; height: 52px;
+    background: var(--espresso); color: #fff;
+    border: none; cursor: pointer; border-radius: 2px;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .btn-cart:hover { background: var(--espresso-light); }
+  .btn-wish {
+    width: 52px; height: 52px;
+    border: 1.5px solid var(--stone-pale); background: none;
+    border-radius: 2px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-wish:hover { border-color: var(--espresso); }
+  .btn-wish svg { width: 20px; height: 20px; stroke: var(--espresso); fill: none; stroke-width: 1.5; }
+  .divider { height: 1px; background: var(--stone-pale); margin: 18px 0; }
+  .detail-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .meta-tag {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--ivory-dark); padding: 7px 12px;
+    border-radius: 2px; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--espresso-light);
+  }
+  .meta-tag svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .seller-card {
+    background: var(--cream-card);
+    border: 1px solid var(--stone-pale);
+    border-radius: 2px;
+    padding: 16px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 16px;
+  }
+  .seller-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0;
+  }
+  .seller-name { font-family: var(--serif); font-size: 17px; font-weight: 400; }
+  .seller-stats { font-size: 11px; color: var(--stone); margin-top: 2px; letter-spacing: 0.05em; }
+  .seller-msg-btn {
+    margin-left: auto;
+    border: 1.5px solid var(--stone-pale); background: none;
+    cursor: pointer; padding: 9px 16px; border-radius: 2px;
+    font-family: var(--sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--espresso);
+    transition: border-color 0.2s;
+  }
+  .seller-msg-btn:hover { border-color: var(--gold); }
+  .escrow-notice {
+    background: var(--sage-pale);
+    border-left: 3px solid var(--sage);
+    padding: 12px 14px; border-radius: 0 2px 2px 0;
+    font-size: 12px; color: var(--sage); line-height: 1.5;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .escrow-notice svg { width: 16px; height: 16px; stroke: var(--sage); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+
+  /* ══════════════════════════════════════
+     PAGE 4 — CART & CHECKOUT
+  ══════════════════════════════════════ */
+  .cart-header { padding: 24px 20px 8px; }
+  .cart-title { font-family: var(--serif); font-size: 30px; font-weight: 300; }
+  .cart-count { font-size: 13px; color: var(--stone); margin-top: 4px; letter-spacing: 0.05em; }
+  .cart-item {
+    display: flex; gap: 14px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--stone-pale);
+  }
+  .cart-item img {
+    width: 80px; height: 96px; object-fit: cover;
+    border-radius: 2px; flex-shrink: 0;
+  }
+  .cart-item-body { flex: 1; }
+  .cart-item-brand { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .cart-item-name { font-family: var(--serif); font-size: 16px; font-weight: 400; margin-bottom: 6px; }
+  .cart-item-size { font-size: 11px; color: var(--stone); letter-spacing: 0.08em; }
+  .cart-item-price { font-size: 15px; font-weight: 600; color: var(--espresso); margin-top: 8px; }
+  .cart-item-remove { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); background: none; border: none; cursor: pointer; padding: 0; font-family: var(--sans); }
+  .cart-item-remove:hover { color: #C4622D; }
+  .order-summary {
+    margin: 0 20px 20px;
+    background: var(--cream-card);
+    border: 1px solid var(--stone-pale); border-radius: 2px;
+    padding: 18px;
+  }
+  .summary-title { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); margin-bottom: 14px; }
+  .summary-row {
+    display: flex; justify-content: space-between;
+    font-size: 13px; margin-bottom: 10px; color: var(--espresso-light);
+  }
+  .summary-row.total {
+    font-size: 16px; font-weight: 600; padding-top: 12px;
+    border-top: 1px solid var(--stone-pale); margin-top: 4px;
+    color: var(--espresso);
+  }
+  .escrow-mini {
+    font-size: 11px; color: var(--sage); display: flex; align-items: center; gap: 6px;
+    margin-top: 10px;
+  }
+  .escrow-mini svg { width: 14px; height: 14px; stroke: var(--sage); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .section-pad { padding: 0 20px 20px; }
+  .form-label {
+    display: block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 6px;
+  }
+  .form-input {
+    width: 100%; height: 48px;
+    border: 1.5px solid var(--stone-pale); border-radius: 2px;
+    background: var(--cream-card);
+    font-family: var(--sans); font-size: 14px;
+    color: var(--espresso); padding: 0 14px;
+    outline: none; margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--stone); }
+  .form-row { display: flex; gap: 10px; }
+  .form-row .form-input { flex: 1; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--stone);
+    padding: 20px 20px 10px;
+    display: block;
+  }
+  .payment-option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--stone-pale);
+    cursor: pointer;
+  }
+  .radio {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--stone-pale);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .radio.checked { border-color: var(--gold); }
+  .radio.checked::after {
+    content: ''; width: 10px; height: 10px;
+    background: var(--gold); border-radius: 50%;
+  }
+  .payment-label { font-size: 14px; font-weight: 400; flex: 1; }
+  .payment-sub { font-size: 11px; color: var(--stone); margin-top: 2px; }
+  .pay-logos { display: flex; gap: 4px; }
+  .pay-logo {
+    background: var(--stone-pale); border-radius: 3px;
+    padding: 4px 8px; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; color: var(--espresso-light);
+  }
+  .btn-checkout {
+    display: block; width: calc(100% - 40px); margin: 0 20px;
+    height: 56px;
+    background: var(--espresso); color: #fff;
+    border: none; cursor: pointer; border-radius: 2px;
+    font-family: var(--sans); font-size: 13px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .btn-checkout:hover { background: var(--espresso-light); }
+
+  /* ══════════════════════════════════════
+     PAGE 5 — DASHBOARD
+  ══════════════════════════════════════ */
+  .dash-header {
+    padding: 24px 20px 18px;
+    background: var(--espresso);
+  }
+  .dash-greeting { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .dash-name { font-family: var(--serif); font-size: 28px; font-weight: 300; color: #fff; }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10px; padding: 16px 20px;
+  }
+  .stat-card {
+    background: var(--cream-card);
+    border: 1px solid var(--stone-pale);
+    border-radius: 2px; padding: 16px;
+  }
+  .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+  .stat-value { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--espresso); }
+  .stat-change { font-size: 11px; color: var(--sage); margin-top: 4px; }
+  .dash-section-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--stone);
+    padding: 18px 20px 10px;
+  }
+  .listing-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--stone-pale);
+  }
+  .listing-row img { width: 56px; height: 68px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+  .listing-row-body { flex: 1; min-width: 0; }
+  .listing-row-name { font-family: var(--serif); font-size: 15px; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .listing-row-price { font-size: 13px; font-weight: 600; color: var(--espresso-light); margin-top: 3px; }
+  .status-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 5px 9px; border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .status-active { background: var(--sage-pale); color: var(--sage); }
+  .status-sold { background: var(--gold-pale); color: #8B6020; }
+  .status-pending { background: #FCE8E4; color: #C4622D; }
+  .fab {
+    position: fixed; bottom: calc(var(--bottom-h) + 20px); right: 20px;
+    width: 56px; height: 56px;
+    background: var(--gold); border-radius: 50%;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(191,139,48,0.4);
+    z-index: 80;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(191,139,48,0.5); }
+  .fab svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; }
+  .fab.hidden { display: none; }
+
+  /* ══════════════════════════════════════
+     PAGE 6 — MESSAGES
+  ══════════════════════════════════════ */
+  .msg-header { padding: 24px 20px 14px; }
+  .msg-title { font-family: var(--serif); font-size: 28px; font-weight: 300; }
+  .conversation {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px; border-bottom: 1px solid var(--stone-pale);
+    cursor: pointer; transition: background 0.15s;
+  }
+  .conversation:hover { background: var(--ivory-dark); }
+  .conv-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0; position: relative;
+  }
+  .conv-online {
+    width: 12px; height: 12px; background: #4CAF50;
+    border-radius: 50%; border: 2px solid var(--ivory);
+    position: absolute; bottom: 0; right: 0;
+  }
+  .conv-body { flex: 1; min-width: 0; }
+  .conv-name { font-weight: 500; font-size: 14px; margin-bottom: 3px; }
+  .conv-preview { font-size: 12px; color: var(--stone); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .conv-item-name { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+  .conv-meta { text-align: right; flex-shrink: 0; }
+  .conv-time { font-size: 10px; color: var(--stone); margin-bottom: 6px; }
+  .unread-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; margin-left: auto; }
+
+  /* Chat view */
+  .chat-view { display: flex; flex-direction: column; height: calc(100vh - var(--nav-h) - 56px); }
+  .chat-product-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 20px;
+    background: var(--ivory-dark);
+    border-bottom: 1px solid var(--stone-pale);
+  }
+  .chat-product-bar img { width: 44px; height: 52px; object-fit: cover; border-radius: 2px; }
+  .chat-product-name { font-family: var(--serif); font-size: 14px; }
+  .chat-product-price { font-size: 12px; font-weight: 600; color: var(--gold); margin-top: 2px; }
+  .messages-area { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .msg-bubble {
+    max-width: 78%; padding: 10px 14px; border-radius: 2px 14px 14px 14px;
+    font-size: 13px; line-height: 1.5;
+  }
+  .msg-bubble.sent { align-self: flex-end; background: var(--espresso); color: #fff; border-radius: 14px 2px 14px 14px; }
+  .msg-bubble.recv { align-self: flex-start; background: var(--cream-card); border: 1px solid var(--stone-pale); color: var(--espresso); }
+  .msg-time { font-size: 10px; color: var(--stone); margin-top: 4px; }
+  .chat-input-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 20px;
+    border-top: 1px solid var(--stone-pale);
+    background: var(--ivory);
+  }
+  .chat-input {
+    flex: 1; height: 44px; border: 1.5px solid var(--stone-pale);
+    border-radius: 22px; padding: 0 16px;
+    font-family: var(--sans); font-size: 14px; color: var(--espresso);
+    background: var(--cream-card); outline: none;
+    transition: border-color 0.2s;
+  }
+  .chat-input:focus { border-color: var(--gold); }
+  .chat-send {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--espresso); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.2s;
+  }
+  .chat-send:hover { background: var(--espresso-light); }
+  .chat-send svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; }
+
+  /* ══════════════════════════════════════
+     PAGE 7 — ORDER TRACKING
+  ══════════════════════════════════════ */
+  .tracking-header { padding: 24px 20px 8px; }
+  .tracking-title { font-family: var(--serif); font-size: 30px; font-weight: 300; }
+  .order-number { font-size: 11px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+  .order-summary-card {
+    margin: 16px 20px;
+    background: var(--cream-card);
+    border: 1px solid var(--stone-pale); border-radius: 2px;
+    display: flex; gap: 14px; padding: 16px; align-items: center;
+  }
+  .order-summary-card img { width: 72px; height: 88px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+  .order-item-name { font-family: var(--serif); font-size: 17px; font-weight: 400; margin-bottom: 4px; }
+  .order-item-price { font-size: 14px; font-weight: 600; color: var(--espresso); }
+  .order-item-from { font-size: 11px; color: var(--stone); margin-top: 4px; }
+  .timeline { padding: 24px 20px; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 36px; top: 24px;
+    bottom: 24px; width: 2px; background: var(--stone-pale);
+  }
+  .timeline-step {
+    display: flex; align-items: flex-start; gap: 18px;
+    margin-bottom: 28px; position: relative;
+  }
+  .timeline-dot {
+    width: 32px; height: 32px; border-radius: 50%;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    z-index: 1;
+    font-size: 14px;
+  }
+  .timeline-dot.done { background: var(--espresso); }
+  .timeline-dot.done svg { stroke: #fff; }
+  .timeline-dot.current { background: var(--gold); box-shadow: 0 0 0 5px rgba(191,139,48,0.2); }
+  .timeline-dot.current svg { stroke: #fff; }
+  .timeline-dot.pending { background: var(--ivory-dark); border: 2px solid var(--stone-pale); }
+  .timeline-dot.pending svg { stroke: var(--stone); }
+  .timeline-dot svg { width: 15px; height: 15px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .timeline-content { padding-top: 4px; }
+  .timeline-step-name { font-weight: 500; font-size: 15px; color: var(--espresso); }
+  .timeline-step-name.muted { color: var(--stone); font-weight: 400; }
+  .timeline-step-time { font-size: 11px; color: var(--stone); margin-top: 3px; letter-spacing: 0.06em; }
+  .timeline-step-desc { font-size: 12px; color: var(--espresso-light); margin-top: 5px; line-height: 1.5; }
+  .confirm-btn {
+    display: block; width: calc(100% - 40px); margin: 0 20px 20px;
+    height: 56px;
+    background: var(--gold); color: #fff;
+    border: none; cursor: pointer; border-radius: 2px;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .confirm-btn:hover { background: var(--gold-light); }
+
+  /* ══════════════════════════════════════
+     PAGE 8 — LOGIN / REGISTER
+  ══════════════════════════════════════ */
+  .auth-page {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .auth-hero {
+    height: 44vw; max-height: 280px;
+    background: var(--espresso);
+    position: relative; overflow: hidden;
+  }
+  .auth-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+  .auth-hero-content {
+    position: absolute; bottom: 24px; left: 24px;
+  }
+  .auth-logo { font-family: var(--serif); font-size: 32px; font-weight: 300; letter-spacing: 0.08em; color: #fff; }
+  .auth-tagline { font-size: 12px; color: var(--gold-light); letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; margin-top: 4px; }
+  .auth-body { flex: 1; background: var(--ivory); padding: 28px 24px 80px; }
+  .tab-switcher {
+    display: flex; border-bottom: 1px solid var(--stone-pale); margin-bottom: 28px;
+  }
+  .tab-btn {
+    flex: 1; padding: 12px; text-align: center;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; cursor: pointer;
+    border: none; background: none; font-family: var(--sans);
+    color: var(--stone); border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn.active { color: var(--espresso); border-bottom-color: var(--espresso); }
+  .btn-full {
+    width: 100%; height: 52px;
+    background: var(--espresso); color: #fff;
+    border: none; cursor: pointer; border-radius: 2px;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .btn-full:hover { background: var(--espresso-light); }
+  .auth-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 20px 0;
+  }
+  .auth-divider::before, .auth-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--stone-pale);
+  }
+  .auth-divider-text { font-size: 11px; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; }
+  .social-btn {
+    width: 100%; height: 48px;
+    border: 1.5px solid var(--stone-pale); background: none;
+    cursor: pointer; border-radius: 2px;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    color: var(--espresso); display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: border-color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--espresso); }
+  .forgot-link { font-size: 12px; color: var(--gold); cursor: pointer; float: right; margin-top: -8px; margin-bottom: 16px; }
+
+  /* ══════════════════════════════════════
+     NOTIFICATIONS BADGE
+  ══════════════════════════════════════ */
+  .notif-badge {
+    position: absolute; top: 2px; right: 2px;
+    width: 14px; height: 14px;
+    background: #C4622D; border-radius: 50%;
+    font-size: 8px; font-weight: 700; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--ivory);
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE tweaks
+  ══════════════════════════════════════ */
+  @media (min-width: 480px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ TOP NAV ════════════════════════ -->
+<nav class="top-nav">
+  <button class="nav-icon-btn" onclick="showPage('login')" title="Profile">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+  </button>
+  <div class="nav-logo" onclick="showPage('home')" style="cursor:pointer;">PASTIMES</div>
+  <button class="nav-icon-btn" onclick="showPage('cart')" title="Cart">
+    <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18"/><line x1="16" y1="10" x2="16" y2="18"/><line x1="8" y1="10" x2="8" y2="18"/></svg>
+    <span class="cart-badge">2</span>
+  </button>
+</nav>
+
+<!-- ══ BOTTOM NAV ════════════════════ -->
+<nav class="bottom-nav">
+  <button class="bnav-item active" id="bn-home" onclick="showPage('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="bnav-item" id="bn-browse" onclick="showPage('browse')">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Browse
+  </button>
+  <button class="bnav-item" id="bn-dash" onclick="showPage('dashboard')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+    Dashboard
+  </button>
+  <button class="bnav-item" id="bn-msgs" onclick="showPage('messages')" style="position:relative;">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <span class="notif-badge">3</span>
+    Messages
+  </button>
+  <button class="bnav-item" id="bn-track" onclick="showPage('tracking')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Orders
+  </button>
+</nav>
+
+
+<!-- ══════════════════════════════════
+     PAGE 1 — HOME
+══════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&h=520&fit=crop&q=80" alt="Fashion hero"/>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">✦ South Africa's Premium Resale Market</div>
+      <h1 class="hero-title">Second<br/>Life <em>Style.</em></h1>
+      <div class="hero-cta-row">
+        <button class="btn-primary" onclick="showPage('browse')">Shop Now</button>
+        <button class="btn-outline" onclick="showPage('dashboard')">Sell Yours</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar-wrap">
+    <input class="search-bar" type="text" placeholder="Search brands, styles, or sizes…"/>
+    <svg class="search-bar-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+  </div>
+
+  <!-- Categories -->
+  <div class="section-header">
+    <h2 class="section-title">Shop by Category</h2>
+    <span class="section-link" onclick="showPage('browse')">See All →</span>
+  </div>
+  <div class="cats-scroll">
+    <div class="cat-chip active">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=120&h=120&fit=crop" alt="Dresses"/>
+      <span class="cat-label">Dresses</span>
+    </div>
+    <div class="cat-chip">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1594938298603-c8148c4b9f33?w=120&h=120&fit=crop" alt="Tops"/>
+      <span class="cat-label">Tops</span>
+    </div>
+    <div class="cat-chip">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=120&h=120&fit=crop" alt="Shoes"/>
+      <span class="cat-label">Shoes</span>
+    </div>
+    <div class="cat-chip">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=120&h=120&fit=crop" alt="Bags"/>
+      <span class="cat-label">Bags</span>
+    </div>
+    <div class="cat-chip">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?w=120&h=120&fit=crop" alt="Jackets"/>
+      <span class="cat-label">Jackets</span>
+    </div>
+    <div class="cat-chip">
+      <img class="cat-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=120&h=120&fit=crop" alt="Pants"/>
+      <span class="cat-label">Pants</span>
+    </div>
+  </div>
+
+  <!-- Featured Listings -->
+  <div class="section-header">
+    <h2 class="section-title">Featured Finds</h2>
+    <span class="section-link" onclick="showPage('browse')">View All →</span>
+  </div>
+  <div class="product-grid">
+    <!-- Item 1 -->
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=530&fit=crop&q=80" alt="Silk Blouse"/>
+      <button class="wishlist-btn liked" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Like New</div>
+        <div class="product-name">Silk Midi Blouse</div>
+        <div class="product-price">R 380 <span class="orig-price">R 1 200</span></div>
+      </div>
+    </div>
+    <!-- Item 2 -->
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=400&h=530&fit=crop&q=80" alt="Blazer"/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Good</div>
+        <div class="product-name">Oversized Linen Blazer</div>
+        <div class="product-price">R 650 <span class="orig-price">R 2 800</span></div>
+      </div>
+    </div>
+    <!-- Item 3 -->
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=530&fit=crop&q=80" alt="Dress"/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Like New</div>
+        <div class="product-name">Floral Wrap Dress</div>
+        <div class="product-price">R 290 <span class="orig-price">R 900</span></div>
+      </div>
+    </div>
+    <!-- Item 4 -->
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=530&fit=crop&q=80" alt="Jeans"/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Good</div>
+        <div class="product-name">High-Rise Straight Jeans</div>
+        <div class="product-price">R 450 <span class="orig-price">R 1 400</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promo Banner -->
+  <div class="promo-banner">
+    <div class="promo-text">
+      <div class="promo-eyebrow">Buyer Protection</div>
+      <div class="promo-headline">Shop safe.<br/>Every order protected.</div>
+    </div>
+    <button class="promo-btn">Learn More</button>
+  </div>
+
+  <!-- New Arrivals -->
+  <div class="section-header">
+    <h2 class="section-title">New Arrivals</h2>
+    <span class="section-link" onclick="showPage('browse')">See All →</span>
+  </div>
+  <div class="product-grid" style="margin-bottom: 20px;">
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&h=530&fit=crop&q=80" alt="Coat"/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Like New</div>
+        <div class="product-name">Wool Trench Coat</div>
+        <div class="product-price">R 1 100 <span class="orig-price">R 4 500</span></div>
+      </div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1532453288672-3a17c2ea7e6e?w=400&h=530&fit=crop&q=80" alt="Skirt"/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Fair</div>
+        <div class="product-name">Pleated Midi Skirt</div>
+        <div class="product-price">R 195 <span class="orig-price">R 780</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 2 — BROWSE
+══════════════════════════════════════ -->
+<div id="page-browse" class="page">
+  <div class="browse-header">
+    <h1 class="browse-title">Browse</h1>
+    <button class="filter-btn">
+      <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="3"/></svg>
+      Filter
+    </button>
+  </div>
+
+  <div class="filter-pills">
+    <button class="pill active">All</button>
+    <button class="pill">Tops</button>
+    <button class="pill">Dresses</button>
+    <button class="pill">Pants</button>
+    <button class="pill">Shoes</button>
+    <button class="pill">Jackets</button>
+    <button class="pill">Bags</button>
+    <button class="pill">Accessories</button>
+  </div>
+
+  <div class="filter-pills" style="padding-top: 0;">
+    <button class="pill active">Any Condition</button>
+    <button class="pill">Like New</button>
+    <button class="pill">Good</button>
+    <button class="pill">Fair</button>
+    <button class="pill">Under R500</button>
+    <button class="pill">Size S/M</button>
+  </div>
+
+  <div class="sort-row">
+    <span class="results-count">184 items found</span>
+    <select class="sort-select">
+      <option>Most Recent</option>
+      <option>Price: Low to High</option>
+      <option>Price: High to Low</option>
+      <option>Most Liked</option>
+    </select>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=530&fit=crop" alt=""/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Like New</div>
+        <div class="product-name">Silk Midi Blouse</div>
+        <div class="product-price">R 380</div>
+      </div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=400&h=530&fit=crop" alt=""/>
+      <button class="wishlist-btn liked" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Good</div>
+        <div class="product-name">Linen Blazer</div>
+        <div class="product-price">R 650</div>
+      </div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&h=530&fit=crop" alt=""/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Like New</div>
+        <div class="product-name">Floral Wrap Dress</div>
+        <div class="product-price">R 290</div>
+      </div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&h=530&fit=crop" alt=""/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Like New</div>
+        <div class="product-name">Wool Trench Coat</div>
+        <div class="product-price">R 1 100</div>
+      </div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=530&fit=crop" alt=""/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Good</div>
+        <div class="product-name">High-Rise Jeans</div>
+        <div class="product-price">R 450</div>
+      </div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <img src="https://images.unsplash.com/photo-1532453288672-3a17c2ea7e6e?w=400&h=530&fit=crop" alt=""/>
+      <button class="wishlist-btn" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <div class="product-info">
+        <div class="product-condition">Fair</div>
+        <div class="product-name">Pleated Midi Skirt</div>
+        <div class="product-price">R 195</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-browse -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 3 — PRODUCT DETAIL
+══════════════════════════════════════ -->
+<div id="page-product" class="page">
+  <div class="detail-img-wrap">
+    <img id="detail-main-img" src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&h=750&fit=crop&q=80" alt="Linen Blazer"/>
+    <span class="img-counter">1 / 4</span>
+  </div>
+
+  <div class="detail-img-thumbs">
+    <img class="thumb active" src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=120&h=144&fit=crop" onclick="switchThumb(this,'https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600&h=750&fit=crop')"/>
+    <img class="thumb" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=120&h=144&fit=crop" onclick="switchThumb(this,'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&h=750&fit=crop')"/>
+    <img class="thumb" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=120&h=144&fit=crop" onclick="switchThumb(this,'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&h=750&fit=crop')"/>
+    <img class="thumb" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=120&h=144&fit=crop" onclick="switchThumb(this,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&h=750&fit=crop')"/>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-brand">Zara · Women's Collection</div>
+    <h1 class="detail-name">Oversized Linen Blazer in Ecru</h1>
+    <div class="detail-price-row">
+      <span class="detail-price">R 650</span>
+      <span class="detail-orig">R 2 800</span>
+      <span class="detail-save">Save 77%</span>
+    </div>
+
+    <div class="detail-meta">
+      <span class="meta-tag">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Good Condition
+      </span>
+      <span class="meta-tag">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Size M
+      </span>
+      <span class="meta-tag">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cape Town
+      </span>
+    </div>
+
+    <div class="size-section">
+      <div class="size-label">Select Size</div>
+      <div class="size-opts">
+        <div class="size-opt">XS</div>
+        <div class="size-opt active">M</div>
+        <div class="size-opt">L</div>
+        <div class="size-opt">XL</div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <button class="btn-cart" onclick="showPage('cart')">Add to Cart</button>
+      <button class="btn-wish">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <p style="font-size:14px; line-height:1.7; color: var(--espresso-light); margin-bottom:18px;">
+      Beautiful oversized linen blazer in off-white/ecru. Worn twice, no visible signs of wear. 
+      Perfect for the office or elevated casual looks. Professional dry cleaning done before listing.
+    </p>
+
+    <div class="seller-card" onclick="showPage('messages')">
+      <img class="seller-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=96&h=96&fit=crop&q=80" alt="Seller"/>
+      <div>
+        <div class="seller-name">Naledi K.</div>
+        <div class="stars">★★★★★</div>
+        <div class="seller-stats">4.9 · 47 sales · Joburg</div>
+      </div>
+      <button class="seller-msg-btn" onclick="event.stopPropagation(); showPage('messages')">Message</button>
+    </div>
+
+    <div class="escrow-notice">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span><strong>Buyer Protected.</strong> Your payment is held securely until you confirm delivery. Shop with confidence.</span>
+    </div>
+  </div>
+</div><!-- /page-product -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 4 — CART & CHECKOUT
+══════════════════════════════════════ -->
+<div id="page-cart" class="page">
+  <div class="cart-header">
+    <h1 class="cart-title">Your Cart</h1>
+    <p class="cart-count">2 items</p>
+  </div>
+
+  <div class="cart-item">
+    <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=160&h=192&fit=crop" alt="Blazer"/>
+    <div class="cart-item-body">
+      <div class="cart-item-brand">Zara</div>
+      <div class="cart-item-name">Oversized Linen Blazer</div>
+      <div class="cart-item-size">Size M · Good Condition</div>
+      <div class="cart-item-price">R 650</div>
+      <button class="cart-item-remove" style="margin-top:8px;">Remove</button>
+    </div>
+  </div>
+
+  <div class="cart-item">
+    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=160&h=192&fit=crop" alt="Blouse"/>
+    <div class="cart-item-body">
+      <div class="cart-item-brand">H&M</div>
+      <div class="cart-item-name">Silk Midi Blouse</div>
+      <div class="cart-item-size">Size S · Like New</div>
+      <div class="cart-item-price">R 380</div>
+      <button class="cart-item-remove" style="margin-top:8px;">Remove</button>
+    </div>
+  </div>
+
+  <div class="order-summary">
+    <div class="summary-title">Order Summary</div>
+    <div class="summary-row"><span>Subtotal</span><span>R 1 030</span></div>
+    <div class="summary-row"><span>Delivery (Pargo)</span><span>R 79</span></div>
+    <div class="summary-row"><span>Platform fee</span><span>R 25</span></div>
+    <div class="summary-row total"><span>Total</span><span>R 1 134</span></div>
+    <div class="escrow-mini">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Payment held securely until you confirm delivery
+    </div>
+  </div>
+
+  <span class="section-label">Delivery Address</span>
+  <div class="section-pad">
+    <input class="form-input" type="text" placeholder="Full Name"/>
+    <input class="form-input" type="text" placeholder="Street Address"/>
+    <div class="form-row">
+      <input class="form-input" type="text" placeholder="City"/>
+      <input class="form-input" type="text" placeholder="Postal Code"/>
+    </div>
+    <input class="form-input" type="tel" placeholder="Phone Number"/>
+  </div>
+
+  <span class="section-label">Payment Method</span>
+  <div class="payment-option" style="border-top: 1px solid var(--stone-pale);">
+    <div class="radio checked"></div>
+    <div>
+      <div class="payment-label">Credit / Debit Card</div>
+      <div class="payment-sub">Visa, Mastercard accepted</div>
+    </div>
+    <div class="pay-logos">
+      <span class="pay-logo">VISA</span>
+      <span class="pay-logo">MC</span>
+    </div>
+  </div>
+  <div class="payment-option">
+    <div class="radio"></div>
+    <div>
+      <div class="payment-label">EFT / Bank Transfer</div>
+      <div class="payment-sub">All major SA banks</div>
+    </div>
+  </div>
+  <div class="payment-option" style="margin-bottom: 20px;">
+    <div class="radio"></div>
+    <div>
+      <div class="payment-label">SnapScan / Ozow</div>
+      <div class="payment-sub">Instant mobile payment</div>
+    </div>
+  </div>
+
+  <button class="btn-checkout" onclick="showPage('tracking')">Confirm & Pay — R 1 134</button>
+  <div style="height: 20px;"></div>
+</div><!-- /page-cart -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 5 — SELLER DASHBOARD
+══════════════════════════════════════ -->
+<div id="page-dashboard" class="page">
+  <div class="dash-header">
+    <div class="dash-greeting">Good Morning</div>
+    <div class="dash-name">Naledi Khumalo</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Active Listings</div>
+      <div class="stat-value">12</div>
+      <div class="stat-change">+2 this week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Sales</div>
+      <div class="stat-value">47</div>
+      <div class="stat-change">All time</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Earned (ZAR)</div>
+      <div class="stat-value" style="font-size:22px;">R 18.4k</div>
+      <div class="stat-change">+R 3 200 this month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Seller Rating</div>
+      <div class="stat-value">4.9</div>
+      <div class="stat-change">★ 42 reviews</div>
+    </div>
+  </div>
+
+  <!-- Notifications strip -->
+  <div style="margin: 0 20px 4px; background: var(--gold-pale); border-radius: 2px; padding: 12px 14px; display: flex; gap: 10px; align-items: center;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B6020" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span style="font-size:12px; color: #8B6020; flex:1;"><strong>New:</strong> 3 items from your wishlist dropped in price. <span style="text-decoration:underline; cursor:pointer;">View</span></span>
+  </div>
+
+  <div class="dash-section-title">My Listings</div>
+  <div class="listing-row">
+    <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=112&h=136&fit=crop" alt=""/>
+    <div class="listing-row-body">
+      <div class="listing-row-name">Oversized Linen Blazer</div>
+      <div class="listing-row-price">R 650</div>
+    </div>
+    <span class="status-badge status-active">Active</span>
+  </div>
+  <div class="listing-row">
+    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=112&h=136&fit=crop" alt=""/>
+    <div class="listing-row-body">
+      <div class="listing-row-name">Wool Trench Coat</div>
+      <div class="listing-row-price">R 1 100</div>
+    </div>
+    <span class="status-badge status-sold">Sold</span>
+  </div>
+  <div class="listing-row">
+    <img src="https://images.unsplash.com/photo-1532453288672-3a17c2ea7e6e?w=112&h=136&fit=crop" alt=""/>
+    <div class="listing-row-body">
+      <div class="listing-row-name">Pleated Midi Skirt</div>
+      <div class="listing-row-price">R 195</div>
+    </div>
+    <span class="status-badge status-active">Active</span>
+  </div>
+  <div class="listing-row">
+    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=112&h=136&fit=crop" alt=""/>
+    <div class="listing-row-body">
+      <div class="listing-row-name">Silk Midi Blouse</div>
+      <div class="listing-row-price">R 380</div>
+    </div>
+    <span class="status-badge status-pending">Pending</span>
+  </div>
+
+  <div class="dash-section-title">Pending Orders</div>
+  <div class="listing-row">
+    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=112&h=136&fit=crop" alt=""/>
+    <div class="listing-row-body">
+      <div class="listing-row-name">High-Rise Straight Jeans</div>
+      <div style="font-size:11px; color: var(--stone); margin-top:3px;">Buyer: Thabo M. · Durban</div>
+      <div class="listing-row-price">R 450</div>
+    </div>
+    <span class="status-badge status-pending">Ship Now</span>
+  </div>
+
+  <div style="height: 80px;"></div>
+</div><!-- /page-dashboard -->
+
+<!-- FAB for creating listing -->
+<button class="fab" id="fab-btn" onclick="alert('Create New Listing — form would open here')">
+  <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+
+
+<!-- ══════════════════════════════════
+     PAGE 6 — MESSAGES
+══════════════════════════════════════ -->
+<div id="page-messages" class="page">
+  <div id="conv-list">
+    <div class="msg-header">
+      <h1 class="msg-title">Messages</h1>
+    </div>
+    <div class="conversation" onclick="showChat()">
+      <div style="position:relative;">
+        <img class="conv-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=96&h=96&fit=crop" alt=""/>
+        <span class="conv-online"></span>
+      </div>
+      <div class="conv-body">
+        <div class="conv-item-name">Oversized Linen Blazer</div>
+        <div class="conv-name">Naledi K.</div>
+        <div class="conv-preview">Is the blazer still available? Can you do R 580?</div>
+      </div>
+      <div class="conv-meta">
+        <div class="conv-time">2m ago</div>
+        <div class="unread-dot"></div>
+      </div>
+    </div>
+    <div class="conversation" onclick="showChat()">
+      <div style="position:relative;">
+        <img class="conv-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&fit=crop" alt=""/>
+      </div>
+      <div class="conv-body">
+        <div class="conv-item-name">Wool Trench Coat</div>
+        <div class="conv-name">Sipho M.</div>
+        <div class="conv-preview">Thanks! I'll confirm once I receive it ✓</div>
+      </div>
+      <div class="conv-meta">
+        <div class="conv-time">1h ago</div>
+      </div>
+    </div>
+    <div class="conversation" onclick="showChat()">
+      <div style="position:relative;">
+        <img class="conv-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&fit=crop" alt=""/>
+        <span class="conv-online"></span>
+      </div>
+      <div class="conv-body">
+        <div class="conv-item-name">Floral Wrap Dress</div>
+        <div class="conv-name">Lerato N.</div>
+        <div class="conv-preview">What's the material? Does it run small?</div>
+      </div>
+      <div class="conv-meta">
+        <div class="conv-time">3h ago</div>
+        <div class="unread-dot"></div>
+      </div>
+    </div>
+    <div class="conversation" onclick="showChat()">
+      <div style="position:relative;">
+        <img class="conv-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&fit=crop" alt=""/>
+      </div>
+      <div class="conv-body">
+        <div class="conv-item-name">Silk Midi Blouse</div>
+        <div class="conv-name">Ayasha P.</div>
+        <div class="conv-preview">Perfect, I'll take it! Sending payment now.</div>
+      </div>
+      <div class="conv-meta">
+        <div class="conv-time">Yesterday</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat view (hidden by default) -->
+  <div id="chat-view-panel" style="display:none;" class="chat-view">
+    <div style="display:flex; align-items:center; gap:12px; padding: 14px 20px; border-bottom: 1px solid var(--stone-pale);">
+      <button onclick="hideChat()" style="background:none;border:none;cursor:pointer;padding:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--espresso)" stroke-width="1.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <img style="width:36px;height:36px;border-radius:50%;object-fit:cover;" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=72&h=72&fit=crop" alt=""/>
+      <div>
+        <div style="font-weight:500;font-size:14px;">Naledi K.</div>
+        <div style="font-size:11px;color:var(--sage);">● Online</div>
+      </div>
+    </div>
+    <div class="chat-product-bar">
+      <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=88&h=104&fit=crop" alt=""/>
+      <div>
+        <div class="chat-product-name">Oversized Linen Blazer</div>
+        <div class="chat-product-price">R 650</div>
+      </div>
+    </div>
+    <div class="messages-area">
+      <div class="msg-bubble recv">Hi! Is the linen blazer still available?<div class="msg-time">10:02 AM</div></div>
+      <div class="msg-bubble sent">Yes it is! Recently dry-cleaned and in great condition 😊<div class="msg-time">10:05 AM</div></div>
+      <div class="msg-bubble recv">Amazing! Would you consider R 580? I can pay immediately.<div class="msg-time">10:08 AM</div></div>
+      <div class="msg-bubble sent">I can do R 620 as my final offer, including delivery to Joburg.<div class="msg-time">10:10 AM</div></div>
+      <div class="msg-bubble recv">Deal! Let me add it to cart now 🙌<div class="msg-time">10:11 AM</div></div>
+    </div>
+    <div class="chat-input-bar">
+      <input class="chat-input" type="text" placeholder="Type a message…"/>
+      <button class="chat-send">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+</div><!-- /page-messages -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 7 — ORDER TRACKING
+══════════════════════════════════════ -->
+<div id="page-tracking" class="page">
+  <div class="tracking-header">
+    <h1 class="tracking-title">Order Status</h1>
+    <p class="order-number">Order #PT-20847 · Placed 12 Apr 2026</p>
+  </div>
+
+  <div class="order-summary-card">
+    <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=144&h=176&fit=crop" alt="Blazer"/>
+    <div>
+      <div class="order-item-name">Oversized Linen Blazer</div>
+      <div class="order-item-price">R 650</div>
+      <div class="order-item-from">From Naledi K. · Cape Town</div>
+      <div style="margin-top:8px; display:flex; gap:6px;">
+        <span class="status-badge status-pending" style="font-size:9px;">In Transit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Escrow notice -->
+  <div style="margin: 0 20px 4px; padding: 14px 16px; background: var(--gold-pale); border-left: 3px solid var(--gold); border-radius: 0 2px 2px 0;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8B6020; margin-bottom: 4px;">Payment Secured</div>
+    <div style="font-size: 12px; color: #8B6020; line-height: 1.5;">R 650 is held safely. It will only be released to the seller once you confirm delivery.</div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-step">
+      <div class="timeline-dot done">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-step-name">Order Placed</div>
+        <div class="timeline-step-time">12 Apr 2026 · 09:34</div>
+        <div class="timeline-step-desc">Payment of R 650 received and secured.</div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot done">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-step-name">Seller Confirmed</div>
+        <div class="timeline-step-time">12 Apr 2026 · 11:20</div>
+        <div class="timeline-step-desc">Naledi has accepted your order and is preparing your item.</div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot current">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-step-name">In Transit</div>
+        <div class="timeline-step-time">13 Apr 2026 · 08:15</div>
+        <div class="timeline-step-desc">Your parcel is on its way via Pargo. Est. arrival: 16 Apr.</div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot pending">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-step-name muted">Delivered</div>
+        <div class="timeline-step-time">Expected 16 Apr 2026</div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="timeline-dot pending">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-step-name muted">Confirm & Release Payment</div>
+        <div class="timeline-step-time">After delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="confirm-btn" onclick="alert('Delivery confirmed! Payment of R 650 released to Naledi K.')">
+    Confirm Delivery Received
+  </button>
+  <div style="height: 12px;"></div>
+</div><!-- /page-tracking -->
+
+
+<!-- ══════════════════════════════════
+     PAGE 8 — LOGIN / REGISTER
+══════════════════════════════════════ -->
+<div id="page-login" class="page auth-page">
+  <div class="auth-hero">
+    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&h=280&fit=crop&q=80" alt="Fashion"/>
+    <div style="position:absolute;inset:0;background:rgba(28,19,11,0.5);"></div>
+    <div class="auth-hero-content">
+      <div class="auth-logo">PASTIMES</div>
+      <div class="auth-tagline">Pre-Loved Fashion, South Africa</div>
+    </div>
+  </div>
+  <div class="auth-body">
+    <div class="tab-switcher">
+      <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+      <button class="tab-btn" id="tab-register" onclick="switchTab('register')">Create Account</button>
+    </div>
+
+    <div id="login-form">
+      <label class="form-label">Email Address</label>
+      <input class="form-input" type="email" placeholder="you@example.com"/>
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" placeholder="Enter your password"/>
+      <div class="forgot-link">Forgot password?</div>
+      <button class="btn-full" onclick="showPage('home')">Sign In</button>
+    </div>
+
+    <div id="register-form" style="display:none;">
+      <div class="form-row">
+        <div style="flex:1;">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" placeholder="Thabo"/>
+        </div>
+        <div style="flex:1;">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" placeholder="Mokoena"/>
+        </div>
+      </div>
+      <label class="form-label">Email Address</label>
+      <input class="form-input" type="email" placeholder="you@example.com"/>
+      <label class="form-label">Phone Number</label>
+      <input class="form-input" type="tel" placeholder="+27 82 000 0000"/>
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" placeholder="Create a secure password"/>
+      <label class="form-label">I want to</label>
+      <div style="display:flex; gap:8px; margin-bottom:16px;">
+        <button class="pill active" style="flex:1;">Buy</button>
+        <button class="pill" style="flex:1;">Sell</button>
+        <button class="pill" style="flex:1;">Both</button>
+      </div>
+      <button class="btn-full" onclick="showPage('home')">Create Account</button>
+    </div>
+
+    <div class="auth-divider"><span class="auth-divider-text">or continue with</span></div>
+    <button class="social-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Continue with Google
+    </button>
+  </div>
+</div><!-- /page-login -->
+
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    const map = { home:'bn-home', browse:'bn-browse', dashboard:'bn-dash', messages:'bn-msgs', tracking:'bn-track' };
+    if (map[name]) document.getElementById(map[name]).classList.add('active');
+    window.scrollTo(0, 0);
+    const fab = document.getElementById('fab-btn');
+    fab.classList.toggle('hidden', name !== 'dashboard');
+  }
+
+  function switchThumb(el, src) {
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('detail-main-img').src = src;
+  }
+
+  function switchTab(tab) {
+    document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  }
+
+  function showChat() {
+    document.getElementById('conv-list').style.display = 'none';
+    document.getElementById('chat-view-panel').style.display = 'flex';
+  }
+
+  function hideChat() {
+    document.getElementById('conv-list').style.display = 'block';
+    document.getElementById('chat-view-panel').style.display = 'none';
+  }
+
+  // pill toggle
+  document.querySelectorAll('.filter-pills').forEach(group => {
+    group.querySelectorAll('.pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+  });
+
+  // wishlist toggle
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      btn.classList.toggle('liked');
+    });
+  });
+
+  // size selector
+  document.querySelectorAll('.size-opts').forEach(group => {
+    group.querySelectorAll('.size-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        group.querySelectorAll('.size-opt').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+      });
+    });
+  });
+
+  // payment radio
+  document.querySelectorAll('.payment-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.radio').forEach(r => r.classList.remove('checked'));
+      opt.querySelector('.radio').classList.add('checked');
+    });
+  });
+
+  // cat chip
+  document.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

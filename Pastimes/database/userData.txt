@@ -1,0 +1,11 @@
+# Pastimes — userData.txt
+# Format: firstName|lastName|email|username|password|phone
+# Note: The password column here is plain text for reference.
+#       createTable.php hashes these automatically using password_hash() on insert.
+#       For phpMyAdmin LOAD DATA INFILE you would need pre-hashed passwords.
+# ─────────────────────────────────────────────────────────────────
+Thabo|Mokoena|thabo.mokoena@gmail.com|thabom|Password1!|+27821234567
+Naledi|Khumalo|naledi.k@outlook.com|naledik|SecurePass8|+27731098765
+Sipho|Dlamini|sipho.dlamini@yahoo.com|siphod|MyClothes9|+27611234500
+Ayesha|Patel|ayesha.patel@webmail.co.za|ayeshap|Fashion88!|+27845567890
+Liam|van der Merwe|liam.vdm@gmail.com|liamvdm|Vintage99#|+27799001122

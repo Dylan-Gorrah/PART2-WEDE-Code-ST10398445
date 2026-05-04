@@ -1,0 +1,10 @@
+# Pastimes — clothesData.txt
+# Format: userID|title|brand|size|price|description|category|condition|status
+# userID must match a real userID in tblUser after seed data is loaded.
+# loadClothingStore.php uses userID=1 for all seed listings.
+# ──────────────────────────────────────────────────────────────────────────────
+1|Classic White Shirt|Ralph Lauren|M|450.00|Barely worn. White Oxford button-down in excellent condition. No stains.|Tops|Very Good|available
+1|High-Waist Jeans|Levi's|32|320.00|Dark indigo slim-fit jeans. Light wash on knees. Great condition.|Bottoms|Good|available
+1|Winter Coat|Zara|L|780.00|Camel coloured wool blend coat. Worn one season only. All buttons intact.|Outerwear|Like New|available
+1|Floral Sundress|H&M|S|180.00|Pastel floral print midi dress. Perfect for summer. Light pilling on inside.|Dresses|Good|available
+1|Leather Belt|Tommy Hilfiger|95cm|150.00|Black genuine leather reversible belt with gold buckle. Barely used.|Accessories|Like New|available

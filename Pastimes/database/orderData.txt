@@ -1,0 +1,9 @@
+# Pastimes — orderData.txt
+# Format: buyerID|clothesID|quantity|totalPrice|status|deliveryAddress
+# buyerID and clothesID must match real IDs after seed data loads.
+# ──────────────────────────────────────────────────────────────────────────────
+2|1|1|450.00|pending|TYPE: residential\nSTREET: 45 Berea Road\nSUBURB: Berea\nCITY: Johannesburg\nPROVINCE: Gauteng\nCODE: 2001
+3|2|1|320.00|confirmed|TYPE: work\nSTREET: 12 Long Street\nSUBURB: Cape Town CBD\nCITY: Cape Town\nPROVINCE: Western Cape\nCODE: 8001
+4|3|1|780.00|shipped|TYPE: residential\nSTREET: 7 Umgeni Road\nSUBURB: Glenwood\nCITY: Durban\nPROVINCE: KwaZulu-Natal\nCODE: 4001
+5|4|1|180.00|delivered|TYPE: residential\nSTREET: 3 Church Street\nSUBURB: Hatfield\nCITY: Pretoria\nPROVINCE: Gauteng\nCODE: 0028
+2|5|1|150.00|pending|TYPE: residential\nSTREET: 45 Berea Road\nSUBURB: Berea\nCITY: Johannesburg\nPROVINCE: Gauteng\nCODE: 2001
